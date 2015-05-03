@@ -1,0 +1,39 @@
+{
+  "name": "Rapid Content Management Framework",
+  "description": "Creating and modifying content with as minimum coding as possible.",
+  "keywords": [
+    "league",
+    ":package_name"
+  ],
+  "homepage": "https://github.com/wimulkeman/Rapid-Content-Management-Framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Wim Ulkeman",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php" : ">=5.4.0",
+    "symfony/class-loader": "~2.6",
+    "symfony/http-foundation": "~2.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit" : "4.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bearwulf\\Rcmf\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Bearwulf\\Rcmf\\Test\\": "tests"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
