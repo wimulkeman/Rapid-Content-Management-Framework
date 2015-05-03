@@ -1,7 +1,7 @@
 <?php
-namespace Bearwulf\Rcmf;
+namespace Bearwulf\RCMF;
 
-class Rcmf
+class RCMF
 {
     function __construct()
     {
