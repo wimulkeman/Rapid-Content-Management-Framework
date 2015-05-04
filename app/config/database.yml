@@ -1,0 +1,5 @@
+driver: pdo_mysql
+user: root
+password: root
+dbname: rcmf
+host: localhost
