@@ -18,7 +18,7 @@ class ContentWizard
 
     public function checkSlug(Request $request)
     {
-        
+
     }
 
     public function saveContent(Request $request)
