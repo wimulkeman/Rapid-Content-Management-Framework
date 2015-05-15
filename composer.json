@@ -1,10 +1,7 @@
 {
   "name": "Rapid Content Management Framework",
   "description": "Creating and modifying content with as minimum coding as possible.",
-  "keywords": [
-    "league",
-    ":package_name"
-  ],
+  "keywords": [],
   "homepage": "https://github.com/wimulkeman/Rapid-Content-Management-Framework",
   "license": "MIT",
   "authors": [
