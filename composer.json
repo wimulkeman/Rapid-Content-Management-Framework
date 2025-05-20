@@ -1,5 +1,5 @@
 {
-  "name": "Rapid Content Management Framework",
+  "name": "wimulkeman/rapid-content-management-framework",
   "description": "Creating and modifying content with as minimum coding as possible.",
   "keywords": [],
   "homepage": "https://github.com/wimulkeman/Rapid-Content-Management-Framework",
@@ -11,15 +11,17 @@
     }
   ],
   "require": {
-    "php" : ">=5.4.0",
-    "symfony/class-loader": "~2.6",
-    "symfony/http-foundation": "~2.6",
-    "doctrine/orm": "~2.5",
-    "symfony/yaml": "~2.6",
-    "twig/twig": "~1.0"
+    "php" : ">=8.3",
+    "symfony/http-foundation": "~7.2",
+    "doctrine/orm": "~3.0",
+    "symfony/yaml": "~7.2",
+    "twig/twig": "~3.20"
   },
   "require-dev": {
-    "phpunit/phpunit" : "4.*"
+    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit" : "12.*",
+    "phpstan/phpstan": "^2.1",
+    "squizlabs/php_codesniffer": "^3.13"
   },
   "autoload": {
     "psr-4": {
@@ -35,5 +37,16 @@
     "branch-alias": {
       "dev-master": "1.0-dev"
     }
+  },
+  "scripts": {
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "analyse": "phpstan analyse",
+    "test": "phpunit",
+    "check-all": [
+      "@cs-check",
+      "@analyse",
+      "@test"
+    ]
   }
 }
