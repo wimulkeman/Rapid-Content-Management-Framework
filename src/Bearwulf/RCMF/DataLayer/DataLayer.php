@@ -1,59 +1,87 @@
 <?php
+
+/*
+ * This file is part of the Rapid Content Management Framework.
+ *
+ * (c) Wim Ulkeman <wim@wimulkeman.nl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Bearwulf\RCMF\DataLayer;
 
-use Doctrine\ORM\Tools\Setup,
-    Doctrine\ORM\EntityManager,
-    Symfony\Component\Yaml\Yaml;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\ORMSetup;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class DataLayer
- * @package Bearwulf\RCMF\DataLayer
  */
 class DataLayer
 {
     /**
-     * @var
+     * @var EntityManager
      */
-    private $entityManager;
+    private EntityManager $entityManager;
 
     /**
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
+     * @throws \Exception
      */
     public function __construct()
     {
         $entityPaths = $this->getEntityDirectories();
         $isDevMode = false;
 
-        $yamlParser = new Yaml();
-        $databaseConfig = $yamlParser->parse(CONFIG_DIR . '/database.yml');
+        $configContent = file_get_contents(CONFIG_DIR.'/database.yml');
+        if (false === $configContent) {
+            throw new \RuntimeException('Could not read database configuration file');
+        }
+        $databaseConfig = Yaml::parse($configContent);
 
-        $config = Setup::createYAMLMetadataConfiguration($entityPaths, $isDevMode);
-        $entityManager = EntityManager::create($databaseConfig, $config);
+        // Create a simple "default" Doctrine ORM configuration for Attributes
+        $config = ORMSetup::createAttributeMetadataConfiguration(
+            $entityPaths,
+            $isDevMode,
+        );
+
+        // Configuring the database connection
+        $connection = DriverManager::getConnection($databaseConfig, $config);
+
+        // Creating the EntityManager
+        $entityManager = new EntityManager($connection, $config);
 
         $this->setEntityManager($entityManager);
     }
 
     /**
-     * @return mixed
+     * @return EntityManager
      */
-    public function getEntityMananager()
+    public function getEntityManager(): EntityManager
     {
         return $this->entityManager;
     }
 
     /**
      * @param EntityManager $entityManager
+     *
+     * @return void
      */
-    private function setEntityManager(EntityManager $entityManager)
+    private function setEntityManager(EntityManager $entityManager): void
     {
         $this->entityManager = $entityManager;
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
-    private function getEntityDirectories()
+    private function getEntityDirectories(): array
     {
-        return array(__DIR__ . '/entity');
+        return [__DIR__.'/Entity'];
     }
 }
