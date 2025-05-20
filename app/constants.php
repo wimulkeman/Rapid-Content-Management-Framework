@@ -11,8 +11,8 @@
 
 declare(strict_types=1);
 
-// Include constants
-require_once __DIR__.'/constants.php';
-
-// Include autoloader
-require_once __DIR__.'/../vendor/autoload.php';
+// Define constants
+define('APP_DIR', __DIR__);
+define('ROOT_DIR', dirname(APP_DIR));
+define('CONFIG_DIR', APP_DIR.'/config');
+define('TEMPLATE_DIR', APP_DIR.'/templates');
